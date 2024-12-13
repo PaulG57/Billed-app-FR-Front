@@ -18,6 +18,15 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+
+    // Ajout de la validation par regex
+    const regex = /\.(jpg|jpeg|png)$/i
+    if (!regex.test(file.name)) {
+        alert("Seules les extensions jpg, jpeg ou png sont acceptées.")
+        e.target.value = "" // Réinitialise le champ fichier
+        return
+    }
+
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
